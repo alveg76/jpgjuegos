@@ -1,26 +1,50 @@
+/* src/app/globals.css — Tailwind v4 */
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --font-sans: var(--font-open-sans, ui-sans-serif, system-ui);
+  --font-serif: var(--font-playfair-display, ui-serif, Georgia);
+
+  --color-crema: #f5efe6;
+  --color-dorado-suave: #c9a646;
+  --color-verde-musgo-oscuro: #0e1a12;
+  --color-verde-oliva-claro: #8ea38b;
+  --color-blue-deep: #0b2a3a;
+  --color-green-leaf: #2f8f46;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* Base */
+:root, html, body { height: 100%; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-image: url('/textures/musgo-fondo.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  font-family: var(--font-sans);
+  color: var(--color-crema);
+  background-color: var(--color-verde-musgo-oscuro);
 }
+
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-serif); }
+
+/* ---- Compatibilidad con nombres antiguos ---- */
+.bg-verde-musgo-oscuro { background-color: var(--color-verde-musgo-oscuro); }
+.text-crema            { color: var(--color-crema); }
+.text-dorado-suave     { color: var(--color-dorado-suave); }
+.bg-dorado-suave       { background-color: var(--color-dorado-suave); }
+.text-blue-deep        { color: var(--color-blue-deep); }
+.text-green-leaf       { color: var(--color-green-leaf); }
+.border-verde-oliva-claro { border-color: var(--color-verde-oliva-claro); }
+.bg-musgo-textura      { background-image: url('/textures/musgo-fondo.jpg'); }
+
+/* Variantes con opacidad que suelen aparecer */
+.text-crema\/90 {
+  color: color-mix(in srgb, var(--color-crema) 90%, transparent);
+}
+.border-verde-oliva-claro\/50 {
+  border-color: color-mix(in srgb, var(--color-verde-oliva-claro) 50%, transparent);
+}
+
+/* --- Scroll con navbar fija: margen superior para anclas --- */
+:where(section[id], h2[id], h3[id], div[id]) { scroll-margin-top: 6rem; }
