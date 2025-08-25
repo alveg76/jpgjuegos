@@ -59,10 +59,10 @@ export default function Contact() {
           {/* Columna info */}
           <div className="space-y-3 text-[color:var(--color-crema)/0.9]">
             <p>
-              <strong>Email:</strong> garzon.ambiental@gmail.com
+              <strong>Email:</strong> garzon.biologia@gmail.com
             </p>
             <p>
-              <strong>Teléfono:</strong> +57 320 373 0905
+              <strong>Teléfono:</strong> +57 314 482 9421   
             </p>
             <p>
               <strong>Ubicación:</strong> Bogotá, Colombia
