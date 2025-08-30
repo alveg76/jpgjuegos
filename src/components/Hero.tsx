@@ -1,7 +1,7 @@
 // src/components/Hero.tsx
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, useState, useEffect } from 'react';
 
 // Asegúrate de que los nombres de tus videos en /public/videos/ coincidan aquí
 const videoSources = [
@@ -39,15 +39,9 @@ const Hero = () => {
   };
 
   return (
-    // --- CONTENEDOR PRINCIPAL (Paso 1) ---
-    // 1. `relative`: Es el ancla para los elementos posicionados absolutamente adentro.
-    // 2. `h-screen`: Ocupa el 100% de la altura de la pantalla del dispositivo.
-    // 3. `overflow-hidden`: Asegura que ninguna parte del video se desborde.
     <div className="relative h-screen w-full overflow-hidden flex items-center justify-center text-center">
       
-      {/* --- VIDEOS DE FONDO (Paso 2) ---
-          La combinación de estas clases es la clave para un fondo de video perfecto.
-      */}
+      {/* --- VIDEOS DE FONDO --- */}
       <video
         key={videoSources[activeIndex]}
         autoPlay
@@ -62,12 +56,14 @@ const Hero = () => {
           transition-opacity duration-1000 
           ${isFading ? 'opacity-0' : 'opacity-100'}
         `}
+        // --- CAMBIO: Filtro para dar brillo al video ---
+        style={{ filter: "brightness(1.12) contrast(1.05) saturate(1.08)" }}
         onTransitionEnd={handleTransitionEnd}
       >
         <source src={videoSources[activeIndex]} type="video/mp4" />
       </video>
 
-      {/* Video siguiente para precarga (mismos estilos responsivos) */}
+      {/* Video siguiente para precarga */}
       <video
         key={videoSources[nextIndex]}
         autoPlay
@@ -75,20 +71,24 @@ const Hero = () => {
         muted
         playsInline
         className="absolute z-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-full min-h-full object-cover opacity-0"
+        // --- CAMBIO: Filtro para dar brillo al video ---
+        style={{ filter: "brightness(1.12) contrast(1.05) saturate(1.08)" }}
       >
         <source src={videoSources[nextIndex]} type="video/mp4" />
       </video>
 
-      {/* --- CAPAS DE SUPERPOSICIÓN (Paso 3) --- */}
-      {/* Capa oscura para mejorar legibilidad */}
-      <div className="absolute inset-0 bg-black/60 z-10"></div>
+      {/* --- CAPAS DE SUPERPOSICIÓN --- */}
+      {/* --- CAMBIO: Capa oscura más clara para mejorar visibilidad del video --- */}
+      <div className="absolute inset-0 bg-black/30 z-10"></div>
       
       {/* Contenido de texto y CTA */}
       <div className="relative z-20 px-4 text-white">
-        <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+        {/* --- CAMBIO: Sombra en el texto para legibilidad --- */}
+        <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
           Bióloga especialista en Epífitas
         </h1>
-        <p className="font-sans text-lg md:text-xl max-w-4xl mx-auto mb-8">
+        {/* --- CAMBIO: Sombra en el texto para legibilidad --- */}
+        <p className="font-sans text-lg md:text-xl max-w-4xl mx-auto mb-8 drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
           Caracterización, manejo y monitoreo de epífitas vasculares y no vasculares para licenciamiento, seguimiento y compensaciones ambientales.
         </p>
         <a
