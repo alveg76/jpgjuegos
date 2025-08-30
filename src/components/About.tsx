@@ -12,7 +12,7 @@ const About = () => {
           <div className="md:w-1/3 w-full flex justify-center">
             <Image
               src="/images/mary-garzon-perfil.jpg"
-              alt="Foto de perfil de Mary Janeth Garzón"
+              alt="Foto de perfil de Mary Janeth Garzón, bióloga experta en epífitas" // Texto 'alt' ligeramente mejorado para SEO
               width={320}
               height={320}
               className="rounded-full object-cover w-[280px] h-[280px] md:w-[320px] md:h-[320px] shadow-2xl border-4 border-dorado-suave"
@@ -23,10 +23,10 @@ const About = () => {
               Sobre mí
             </h2>
             <p className="font-sans text-lg text-crema leading-relaxed mb-4">
-              Soy bióloga (epifitóloga) con experiencia en inventarios, líneas base, evaluación de impactos, planes de manejo, rescate–traslado–reubicación, y programas de seguimiento y monitoreo para proyectos de energía, hidrocarburos, infraestructura vial y líneas de transmisión.
+              Soy bióloga con maestría en ciencias ambientales, especialista en el estudio de epífitas (epifitóloga). Mi experiencia abarca el levantamiento e identificación de flora, incluyendo epífitas vasculares y no vasculares, para la elaboración de inventarios, líneas base, evaluación de impactos (EIA), planes de manejo (PMA) y programas de rescate y monitoreo.
             </p>
-            <p className="font-sans text-lg text-crema leading-relaxed">
-              He trabajado como consultora y líder de componente en equipos multidisciplinarios, asegurando calidad técnica, trazabilidad de datos (GDB, Darwin Core) y cumplimiento normativo.
+            <p className="font-sans text-lg text-crema leading-relaxed mb-4">
+              He trabajado como consultora y líder de componente en equipos multidisciplinarios para proyectos de energía, hidrocarburos e infraestructura en diversas regiones, lo que me ha permitido conocer a fondo la invaluable diversidad biológica de Colombia. Mi labor se centra en asegurar la calidad técnica, la trazabilidad de datos (GDB, Darwin Core) y el cumplimiento de la normatividad ambiental.
             </p>
           </div>
         </div>
