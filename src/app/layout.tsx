@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Open_Sans } from "next/font/google";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const playfairDisplay = Playfair_Display({
@@ -15,49 +16,69 @@ const openSans = Open_Sans({
   variable: "--font-open-sans",
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mjgbiologa.com";
+const SITE_DESCRIPTION =
+  "Tienda de juegos de mesa y estrategia en Bogotá, Colombia. Catan, Carcassonne, Codenames, Spot It y más, con envíos a todo el país desde Bogotá.";
 
-// --- METADATA RECOMENDADA INTEGRADA ---
 export const metadata: Metadata = {
   title: {
-    default: "Bióloga experta en epífitas | Mary Janeth Garzón",
-    template: "%s | Bióloga experta en epífitas",
+    default: `${SITE_NAME} | Juegos de mesa y estrategia en Bogotá`,
+    template: `%s | ${SITE_NAME}`,
   },
-  description:
-    "Bióloga experta en epífitas (epifitología), caracterización de vegetación y monitoreo ecológico. Consultoría ambiental para proyectos en Colombia y Latinoamérica.",
+  description: SITE_DESCRIPTION,
   metadataBase: new URL(SITE_URL),
   alternates: {
     canonical: SITE_URL,
-    languages: { "es-CO": SITE_URL, es: SITE_URL },
+    languages: { es: SITE_URL },
   },
   keywords: [
-    "bióloga experta en epífitas",
-    "epifitología",
-    "monitoreo ecológico",
-    "consultoría ambiental",
-    "caracterización de vegetación",
-     "epífitas vasculares",
-    "epífitas no vasculares",
+    "juegos de mesa Bogotá",
+    "tienda de juegos de mesa Colombia",
+    "Catan Colombia",
+    "Carcassonne Colombia",
+    "juegos familiares Bogotá",
+    "juegos didácticos Colombia",
   ],
+  themeColor: "#0f1729",
   openGraph: {
     type: "website",
-    title: "Bióloga experta en epífitas | Mary Janeth Garzón",
-    description:
-      "Consultoría en epífitas y biodiversidad. Estudios, monitoreo y soporte a proyectos ambientales.",
+    title: `${SITE_NAME} | Juegos de mesa y estrategia en Colombia`,
+    description: "Juegos de mesa familiares y de estrategia desde Bogotá con envíos a todo Colombia.",
     url: SITE_URL,
-    siteName: "Mary Janeth Garzón",
-    images: [{ url: "/images/og-cover.jpg", width: 1200, height: 630 }],
+    siteName: SITE_NAME,
+    locale: "es_CO",
+    images: [
+      {
+        url: "/images/og-banner-1200x630.jpg",
+        width: 1200,
+        height: 630,
+        alt: "JPG Juegos – Juegos de mesa y estrategia en Colombia",
+      },
+    ],
   },
-  twitter: { card: "summary_large_image" },
-  robots: { index: true, follow: true },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} | Juegos de mesa y estrategia en Bogotá`,
+    description: SITE_DESCRIPTION,
+    images: ["/images/og-banner-1200x630.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  category: "ecommerce",
   icons: { icon: "/favicon.ico" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    // Se ha cambiado lang="es" por "es-CO" para geolocalizar a Colombia
-    <html lang="es-CO" className={`${playfairDisplay.variable} ${openSans.variable}`}>
-      <body>
+    <html lang="es" className={`${playfairDisplay.variable} ${openSans.variable}`}>
+      <body className="bg-[--color-surface] text-[--color-text-primary] antialiased">
         {/* Skip link de accesibilidad */}
         <a
           href="#contenido"

@@ -2,49 +2,114 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-open-sans, ui-sans-serif, system-ui);
-  --font-serif: var(--font-playfair-display, ui-serif, Georgia);
+  --font-sans: var(--font-open-sans, "Space Grotesk", ui-sans-serif, system-ui);
+  --font-serif: var(--font-playfair-display, "Chakra Petch", ui-serif, Georgia);
 
-  --color-crema: #f5efe6;
-  --color-dorado-suave: #c9a646;
-  --color-verde-musgo-oscuro: #0e1a12;
-  --color-verde-oliva-claro: #8ea38b;
-  --color-blue-deep: #0b2a3a;
-  --color-green-leaf: #2f8f46;
+  --color-surface: #050914;
+  --color-surface-contrast: #091024;
+  --color-panel: #0f1729;
+  --color-panel-soft: #141f39;
+  --color-card: #111a2d;
+  --color-accent-primary: #7dd3fc;
+  --color-accent-secondary: #f5cc7b;
+  --color-accent-tertiary: #9a8cff;
+  --color-text-primary: #f4f7ff;
+  --color-text-muted: #8d96b8;
+  --color-border-subtle: #1e2942;
+  --color-border-strong: #324068;
 }
 
-/* Base */
-:root, html, body { height: 100%; }
+:root,
+html,
+body {
+  height: 100%;
+  background-color: var(--color-surface);
+}
+
+:root {
+  color-scheme: dark;
+}
 
 body {
-  background-image: url('/textures/musgo-fondo.jpg');
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: center;
   font-family: var(--font-sans);
-  color: var(--color-crema);
-  background-color: var(--color-verde-musgo-oscuro);
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(24, 37, 75, 0.9) 0, transparent 45%),
+    radial-gradient(circle at 80% 0%, rgba(24, 33, 63, 0.8) 0, transparent 35%),
+    radial-gradient(circle at 50% 80%, rgba(125, 211, 252, 0.05), transparent 45%),
+    linear-gradient(135deg, rgba(9, 16, 36, 0.92), rgba(5, 9, 20, 0.97));
+  background-attachment: fixed;
+  min-height: 100%;
 }
 
-h1, h2, h3, h4, h5, h6 { font-family: var(--font-serif); }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif);
+  letter-spacing: -0.01em;
+}
 
-/* ---- Compatibilidad con nombres antiguos ---- */
-.bg-verde-musgo-oscuro { background-color: var(--color-verde-musgo-oscuro); }
-.text-crema            { color: var(--color-crema); }
-.text-dorado-suave     { color: var(--color-dorado-suave); }
-.bg-dorado-suave       { background-color: var(--color-dorado-suave); }
-.text-blue-deep        { color: var(--color-blue-deep); }
-.text-green-leaf       { color: var(--color-green-leaf); }
-.border-verde-oliva-claro { border-color: var(--color-verde-oliva-claro); }
-.bg-musgo-textura      { background-image: url('/textures/musgo-fondo.jpg'); }
+::selection {
+  background-color: color-mix(in srgb, var(--color-accent-primary) 60%, transparent);
+  color: #041229;
+}
 
-/* Variantes con opacidad que suelen aparecer */
+:where(section[id], h2[id], h3[id], div[id]) {
+  scroll-margin-top: 6rem;
+}
+
+/* Helper styles */
+.glass-panel {
+  background: color-mix(in srgb, var(--color-panel) 85%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-border-subtle) 80%, transparent);
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 60px rgba(2, 7, 18, 0.55);
+  backdrop-filter: blur(24px);
+}
+
+.cyber-grid {
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px
+    );
+  background-size: 48px 48px;
+}
+
+.soft-card {
+  background: var(--color-card);
+  border-radius: 1rem;
+  border: 1px solid color-mix(in srgb, var(--color-border-subtle) 70%, transparent);
+  box-shadow: 0 18px 45px rgba(4, 6, 15, 0.4);
+}
+
+.accent-gradient {
+  background-image: linear-gradient(120deg, var(--color-accent-primary), var(--color-accent-tertiary));
+}
+
+/* Legacy color tokens remapped */
+.bg-verde-musgo-oscuro { background-color: var(--color-surface); }
+.text-crema { color: var(--color-text-primary); }
+.text-dorado-suave { color: var(--color-accent-secondary); }
+.bg-dorado-suave { background-color: var(--color-accent-secondary); }
+.text-blue-deep { color: var(--color-accent-tertiary); }
+.text-green-leaf { color: var(--color-accent-primary); }
+.border-verde-oliva-claro { border-color: var(--color-border-subtle); }
+.bg-musgo-textura { background-image: none; }
+
 .text-crema\/90 {
-  color: color-mix(in srgb, var(--color-crema) 90%, transparent);
-}
-.border-verde-oliva-claro\/50 {
-  border-color: color-mix(in srgb, var(--color-verde-oliva-claro) 50%, transparent);
+  color: color-mix(in srgb, var(--color-text-primary) 90%, transparent);
 }
 
-/* --- Scroll con navbar fija: margen superior para anclas --- */
-:where(section[id], h2[id], h3[id], div[id]) { scroll-margin-top: 6rem; }
+.border-verde-oliva-claro\/50 {
+  border-color: color-mix(in srgb, var(--color-border-subtle) 50%, transparent);
+}
