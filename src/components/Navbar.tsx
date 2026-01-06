@@ -48,6 +48,19 @@ export default function Navbar() {
           </button>
 
           <Link href="/" className="flex items-center gap-3" aria-label="JPG Juegos">
+            <div className="relative flex h-10 items-center gap-2 md:hidden">
+              <Image
+                src="/images/logoJPG-header.png"
+                alt="Logo JPG Juegos"
+                width={160}
+                height={60}
+                className="h-full w-auto object-contain"
+                priority
+              />
+              <span className="text-base font-semibold uppercase tracking-wide text-[--color-text-primary]">
+                JPG Juegos
+              </span>
+            </div>
             <div className="relative hidden h-[64px] w-[260px] items-center justify-center md:flex">
               <Image
                 src="/images/logoJPG-header.png"

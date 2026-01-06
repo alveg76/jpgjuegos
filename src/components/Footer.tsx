@@ -96,7 +96,7 @@ export default function Footer() {
               Términos y condiciones
             </Link>
             <Link href="mailto:hola@mythicnexus.games" className="hover:text-[--color-accent-primary]">
-              hola@mythicnexus.games
+              info@jpgjuegos.com
             </Link>
           </div>
         </div>
