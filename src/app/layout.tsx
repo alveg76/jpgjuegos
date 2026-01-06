@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Open_Sans } from "next/font/google";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
@@ -38,7 +38,6 @@ export const metadata: Metadata = {
     "juegos familiares Bogotá",
     "juegos didácticos Colombia",
   ],
-  themeColor: "#0f1729",
   openGraph: {
     type: "website",
     title: `${SITE_NAME} | Juegos de mesa y estrategia en Colombia`,
@@ -73,6 +72,10 @@ export const metadata: Metadata = {
   },
   category: "ecommerce",
   icons: { icon: "/favicon.ico" },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0f1729",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
