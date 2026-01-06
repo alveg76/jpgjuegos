@@ -1,9 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useCart } from "@/store/cart.store";
 
-const currency = new Intl.NumberFormat("es-MX", {
+const currency = new Intl.NumberFormat("es-CO", {
   style: "currency",
-  currency: "MXN",
+  currency: "COP",
+  maximumFractionDigits: 0,
 });
 
 type StockStatus = "in_stock" | "preorder" | "out_of_stock";
@@ -200,6 +204,8 @@ function RatingStars({ rating }: { rating: number }) {
 }
 
 export default function FeaturedProductsGrid() {
+  const addItem = useCart((state) => state.addItem);
+
   return (
     <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8" id="featured-products">
       <div className="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
@@ -261,6 +267,17 @@ export default function FeaturedProductsGrid() {
                   <button
                     className="rounded-2xl border border-[--color-accent-primary]/60 px-4 py-2 text-sm font-semibold text-[--color-accent-primary] transition hover:border-[--color-accent-primary] hover:bg-[--color-accent-primary]/10 disabled:cursor-not-allowed disabled:border-[--color-border-subtle] disabled:text-[--color-text-muted]"
                     disabled={product.stock === "out_of_stock"}
+                    onClick={() =>
+                      addItem(
+                        {
+                          id: product.id,
+                          name: product.title,
+                          price: product.price,
+                          image: product.image,
+                        },
+                        1
+                      )
+                    }
                   >
                     {product.stock === "out_of_stock" ? "Notificarme" : "Agregar al carrito"}
                   </button>

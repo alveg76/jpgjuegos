@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useCart } from "@/store/cart.store";
 
 const primaryNav = [
   { label: "Inicio", href: "#inicio" },
@@ -17,7 +18,8 @@ const primaryNav = [
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const cartCount = 3;
+  const toggleCart = useCart((state) => state.toggle);
+  const cartCount = useCart((state) => state.count());
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 8);
@@ -104,17 +106,23 @@ export default function Navbar() {
               <Link href="#login" className="font-medium text-[--color-text-muted] transition hover:text-[--color-accent-primary]">
                 Iniciar sesión / Regístrate
               </Link>
-              <Link
-                href="#cart"
+              <button
+                type="button"
+                onClick={toggleCart}
                 className="relative inline-flex items-center gap-2 rounded-2xl border border-[--color-accent-primary]/50 px-4 py-2 text-sm font-semibold text-[--color-accent-primary] transition hover:border-[--color-accent-primary] hover:bg-[--color-accent-primary]/10"
+                aria-label="Abrir carrito"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                   <circle cx="9" cy="20" r="1.5" />
                   <circle cx="17" cy="20" r="1.5" />
                   <path d="M3 4h2l2.4 11.2A2 2 0 0 0 9.4 17H18a2 2 0 0 0 1.96-1.63L21 8H6" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                <span className="rounded-xl bg-[--color-accent-primary] px-2 py-0.5 text-xs font-bold text-[#041229]">{cartCount}</span>
-              </Link>
+                {cartCount > 0 && (
+                  <span className="rounded-xl bg-[--color-accent-primary] px-2 py-0.5 text-xs font-bold text-[#041229]">
+                    {cartCount}
+                  </span>
+                )}
+              </button>
             </div>
           </div>
         </div>
@@ -180,16 +188,19 @@ export default function Navbar() {
             >
               Soporte: +52 55 0000 0000
             </Link>
-            <Link
-              href="#cart"
-              onClick={() => setMenuOpen(false)}
+            <button
+              type="button"
+              onClick={() => {
+                toggleCart();
+                setMenuOpen(false);
+              }}
               className="flex items-center justify-between rounded-2xl border border-[--color-accent-primary] px-4 py-3 text-[--color-accent-primary]"
             >
               <span>Carrito</span>
               <span className="rounded-xl bg-[--color-accent-primary] px-2 py-0.5 text-xs font-bold text-[#041229]">
                 {cartCount}
               </span>
-            </Link>
+            </button>
           </div>
         </div>
       )}
