@@ -14,12 +14,16 @@ export default function CartDrawer() {
 
   const total = subtotal();
 
-  // TODO: cambia por tu WhatsApp real
-  const WHATSAPP_PHONE = "57XXXXXXXXXX";
+  const WHATSAPP_PHONE = "573107822138";
 
   const waUrl = useMemo(() => {
     return buildWhatsAppUrl({ phoneE164: WHATSAPP_PHONE, items, note });
   }, [items, note]);
+
+  const handleWhatsAppCheckout = () => {
+    if (!items.length) return;
+    window.open(waUrl, "_blank", "noopener,noreferrer");
+  };
 
   return (
     <>
@@ -123,18 +127,18 @@ export default function CartDrawer() {
             <span className="font-semibold">{formatCOP(total)}</span>
           </div>
 
-          <a
-            href={items.length ? waUrl : "#"}
-            target="_blank"
-            rel="noreferrer"
-            className={`block w-full rounded-xl py-3 text-center font-semibold ${
+          <button
+            type="button"
+            onClick={handleWhatsAppCheckout}
+            disabled={!items.length}
+            className={`w-full rounded-xl py-3 text-center font-semibold ${
               items.length
                 ? "bg-emerald-500 text-slate-950 hover:bg-emerald-400"
-                : "bg-white/10 text-white/40 pointer-events-none"
+                : "bg-white/10 text-white/40"
             }`}
           >
             Pedir por WhatsApp
-          </a>
+          </button>
 
           <p className="mt-2 text-xs text-white/50">
             Te confirmamos disponibilidad y envío por WhatsApp.
