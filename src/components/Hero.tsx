@@ -50,7 +50,7 @@ const slides: Slide[] = [
   {
     id: 'carcassonne-video',
     type: 'video',
-    mediaSrc: '/videos/Carcassonne_Video_Generado_Animadamente.mp4',
+    mediaSrc: '/videos/VideoCarcassone.mp4',
     eyebrow: 'Exploración medieval',
     title: 'Construye historias con Carcassonne Live',
     description: 'Nuevo contenido audiovisual y aventuras cooperativas para seguir la partida en streaming.',
@@ -76,7 +76,7 @@ const slides: Slide[] = [
   {
     id: 'catan-video',
     type: 'video',
-    mediaSrc: '/videos/Catan_Video_Generation_Request.mp4',
+    mediaSrc: '/videos/VideoCatan.mp4',
     eyebrow: 'Historias en cada tirada',
     title: 'Catan en versión cinemática',
     description: 'Inspírate con guías dinámicas y retos cooperativos para jugadores expertos.',
