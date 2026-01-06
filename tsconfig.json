@@ -26,6 +26,9 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "sanity/*": [
+        "./node_modules/sanity/*"
       ]
     },
     "target": "ES2017"
