@@ -14,10 +14,12 @@ export default function CartDrawer() {
 
   const total = subtotal();
 
-  const WHATSAPP_PHONE = "573107822138";
-
   const waUrl = useMemo(() => {
-    return buildWhatsAppUrl({ phoneE164: WHATSAPP_PHONE, items, note });
+    return buildWhatsAppUrl({
+      phoneE164: process.env.NEXT_PUBLIC_WHATSAPP_E164 || "573107822138",
+      items,
+      note,
+    });
   }, [items, note]);
 
   const handleWhatsAppCheckout = () => {

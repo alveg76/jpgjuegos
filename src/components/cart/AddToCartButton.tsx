@@ -1,6 +1,6 @@
 "use client";
 
-import { useCart } from "@/components/cart/CartProvider";
+import { useCart } from "@/store/cart.store";
 
 type AddToCartButtonProps = {
   product: {
@@ -23,7 +23,7 @@ export default function AddToCartButton({ product, disabled, label = "Agregar al
       name: product.name ?? product.slug,
       slug: product.slug,
       price: product.price ?? 0,
-      image: product.image,
+      image: product.image ?? undefined,
     });
   };
 

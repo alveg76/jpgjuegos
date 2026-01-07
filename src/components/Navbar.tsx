@@ -3,8 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useCart as useZustandCart } from "@/store/cart.store";
-import { useCart } from "@/components/cart/CartProvider";
+import { useCart } from "@/store/cart.store";
 
 const primaryNav = [
   { label: "Inicio", href: "#inicio" },
@@ -19,8 +18,8 @@ const primaryNav = [
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const toggleCart = useZustandCart((state) => state.toggle);
-  const { count: cartCount } = useCart();
+  const { toggle, count } = useCart();
+  const cartCount = count();
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 8);
@@ -107,10 +106,11 @@ export default function Navbar() {
               <Link href="#login" className="font-medium text-[--color-text-muted] transition hover:text-[--color-accent-primary]">
                 Iniciar sesión / Regístrate
               </Link>
-              <Link
-                href="/carrito"
+              <button
+                type="button"
+                onClick={toggle}
                 className="relative inline-flex items-center gap-2 rounded-2xl border border-[--color-accent-primary]/50 px-4 py-2 text-sm font-semibold text-[--color-accent-primary] transition hover:border-[--color-accent-primary] hover:bg-[--color-accent-primary]/10"
-                aria-label="Ver carrito"
+                aria-label="Abrir carrito"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                   <circle cx="9" cy="20" r="1.5" />
@@ -122,7 +122,7 @@ export default function Navbar() {
                     {cartCount}
                   </span>
                 )}
-              </Link>
+              </button>
             </div>
           </div>
         </div>
@@ -188,9 +188,12 @@ export default function Navbar() {
             >
               Soporte: +57 310 782 21 38
             </Link>
-            <Link
-              href="/carrito"
-              onClick={() => setMenuOpen(false)}
+            <button
+              type="button"
+              onClick={() => {
+                toggle();
+                setMenuOpen(false);
+              }}
               className="flex items-center justify-between rounded-2xl border border-[--color-accent-primary] px-4 py-3 text-[--color-accent-primary]"
             >
               <span>Carrito</span>
@@ -199,7 +202,7 @@ export default function Navbar() {
                   {cartCount}
                 </span>
               )}
-            </Link>
+            </button>
           </div>
         </div>
       )}
