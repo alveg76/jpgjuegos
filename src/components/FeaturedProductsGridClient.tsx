@@ -114,18 +114,6 @@ export default function FeaturedProductsGridClient({ products }: { products: Pro
                     Ver detalles
                   </button>
                 </div>
-
-                {/* opcional: link a página completa */}
-                {product.slug ? (
-                  <div className="text-center">
-                    <Link
-                      href={`/productos/${product.slug}`}
-                      className="text-xs text-[--color-text-muted] underline hover:text-[--color-accent-primary]"
-                    >
-                      Ir a la ficha completa →
-                    </Link>
-                  </div>
-                ) : null}
               </div>
             </article>
           );

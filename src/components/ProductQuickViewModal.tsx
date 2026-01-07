@@ -85,11 +85,11 @@ export default function ProductQuickViewModal({ open, onClose, product }: Props)
       <button
         aria-label="Cerrar"
         onClick={onClose}
-        className="absolute inset-0 bg-black/70"
+        className="absolute inset-0 bg-black/80"
       />
 
       {/* panel */}
-      <div className="absolute left-1/2 top-1/2 w-[min(920px,92vw)] max-h-[90vh] overflow-y-auto -translate-x-1/2 -translate-y-1/2 rounded-3xl border border-[--color-border-subtle] bg-[--color-card] p-5 shadow-2xl">
+      <div className="absolute left-1/2 top-1/2 w-[min(920px,92vw)] max-h-[90vh] overflow-y-auto -translate-x-1/2 -translate-y-1/2 rounded-3xl border border-[--color-border-subtle] bg-[--color-card]/95 backdrop-blur-md p-5 shadow-2xl">
         <div className="flex items-start justify-between gap-4">
           <div>
             <h3 className="text-2xl font-semibold text-[--color-text-primary]">
