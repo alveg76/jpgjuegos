@@ -57,7 +57,7 @@ export default function ProductQuickViewModal({ open, onClose, product }: Props)
   const embed = product.youtubeUrl ? toYouTubeEmbedUrl(product.youtubeUrl) : null;
 
   const media = embed ? (
-    <div className="aspect-video w-full overflow-hidden rounded-2xl border border-[--color-border-subtle] bg-[--color-panel]">
+    <div className="aspect-video w-full overflow-hidden rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-panel)]">
       <iframe
         className="h-full w-full"
         src={embed}
@@ -71,10 +71,10 @@ export default function ProductQuickViewModal({ open, onClose, product }: Props)
     <img
       src={product.image}
       alt={product.name || "Producto"}
-      className="w-full rounded-2xl border border-[--color-border-subtle] bg-[--color-panel] object-contain"
+      className="w-full rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-panel)] object-contain"
     />
   ) : (
-    <div className="rounded-2xl border border-[--color-border-subtle] bg-[--color-panel] p-8 text-center text-[--color-text-muted]">
+    <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-panel)] p-8 text-center text-[var(--color-text-muted)]">
       Sin imagen
     </div>
   );
@@ -89,17 +89,17 @@ export default function ProductQuickViewModal({ open, onClose, product }: Props)
       />
 
       {/* panel */}
-      <div className="absolute left-1/2 top-1/2 w-[min(920px,92vw)] max-h-[90vh] overflow-y-auto -translate-x-1/2 -translate-y-1/2 rounded-3xl border border-[--color-border-subtle] bg-[--color-card]/95 backdrop-blur-md p-5 shadow-2xl">
+      <div className="absolute left-1/2 top-1/2 w-[min(920px,92vw)] max-h-[90vh] overflow-y-auto -translate-x-1/2 -translate-y-1/2 rounded-3xl border border-[var(--color-border-subtle)] bg-[color:var(--color-card)]/95 backdrop-blur-md p-5 shadow-2xl">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h3 className="text-2xl font-semibold text-[--color-text-primary]">
+            <h3 className="text-2xl font-semibold text-[var(--color-text-primary)]">
               {product.name || product.slug}
             </h3>
           </div>
 
           <button
             onClick={onClose}
-            className="rounded-xl border border-[--color-border-subtle] bg-[--color-panel] px-3 py-2 text-sm text-[--color-text-primary] hover:bg-[--color-panel-soft]"
+            className="rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-panel)] px-3 py-2 text-sm text-[var(--color-text-primary)] hover:bg-[--color-panel-soft]"
           >
             Cerrar
           </button>
@@ -117,7 +117,7 @@ export default function ProductQuickViewModal({ open, onClose, product }: Props)
                     key={`${url}-${i}`}
                     src={url}
                     alt={`${product.name || "Producto"} ${i + 1}`}
-                    className="h-20 w-28 flex-none rounded-xl border border-[--color-border-subtle] bg-[--color-panel] object-cover"
+                    className="h-20 w-28 flex-none rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-panel)] object-cover"
                   />
                 ))}
               </div>
@@ -125,16 +125,16 @@ export default function ProductQuickViewModal({ open, onClose, product }: Props)
           </div>
 
           <div className="space-y-4">
-            <div className="rounded-2xl border border-[--color-border-subtle] bg-[--color-panel] p-4">
-              <div className="text-[--color-text-muted]">Precio</div>
+            <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-panel)] p-4">
+              <div className="text-[var(--color-text-muted)]">Precio</div>
               <div className="mt-1 text-3xl font-semibold text-[--color-accent-secondary]">
                 {currency.format(product.price || 0)}
               </div>
             </div>
 
-            <div className="rounded-2xl border border-[--color-border-subtle] bg-[--color-panel] p-4">
-              <div className="text-[--color-text-muted]">Descripción</div>
-              <p className="mt-2 whitespace-pre-wrap text-[--color-text-primary]">
+            <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-panel)] p-4">
+              <div className="text-[var(--color-text-muted)]">Descripción</div>
+              <p className="mt-2 whitespace-pre-wrap text-[var(--color-text-primary)]">
                 {product.description?.trim()
                   ? product.description
                   : "Agrega una descripción en Sanity para que aparezca aquí."}

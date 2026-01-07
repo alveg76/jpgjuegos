@@ -33,10 +33,10 @@ export default function FeaturedProductsGridClient({ products }: { products: Pro
     return (
       <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8" id="featured-products">
         <div className="mb-8">
-          <p className="text-xs uppercase tracking-[0.5em] text-[--color-text-muted]">Catálogo JPG Juegos</p>
-          <h2 className="mt-2 text-3xl font-semibold text-[--color-text-primary]">Favoritos en mesa y aula</h2>
+          <p className="text-xs uppercase tracking-[0.5em] text-[var(--color-text-muted)]">Catálogo JPG Juegos</p>
+          <h2 className="mt-2 text-3xl font-semibold text-[var(--color-text-primary)]">Favoritos en mesa y aula</h2>
         </div>
-        <div className="rounded-2xl border border-dashed border-[--color-border-subtle] bg-[--color-card] p-10 text-center text-[--color-text-muted]">
+        <div className="rounded-2xl border border-dashed border-[var(--color-border-subtle)] bg-[var(--color-card)] p-10 text-center text-[var(--color-text-muted)]">
           Aún no hay productos destacados en Sanity. Marca algunos como &quot;Destacar en home&quot; para que aparezcan aquí.
         </div>
       </section>
@@ -47,9 +47,9 @@ export default function FeaturedProductsGridClient({ products }: { products: Pro
     <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8" id="featured-products">
       <div className="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="text-xs uppercase tracking-[0.5em] text-[--color-text-muted]">Catálogo JPG Juegos</p>
-          <h2 className="mt-2 text-3xl font-semibold text-[--color-text-primary]">Favoritos en mesa y aula</h2>
-          <p className="text-sm text-[--color-text-muted]">
+          <p className="text-xs uppercase tracking-[0.5em] text-[var(--color-text-muted)]">Catálogo JPG Juegos</p>
+          <h2 className="mt-2 text-3xl font-semibold text-[var(--color-text-primary)]">Favoritos en mesa y aula</h2>
+          <p className="text-sm text-[var(--color-text-muted)]">
             Estrategia, party y kits didácticos administrados directamente en Sanity.
           </p>
         </div>
@@ -66,7 +66,7 @@ export default function FeaturedProductsGridClient({ products }: { products: Pro
           return (
             <article
               key={product.id}
-              className="flex flex-col overflow-hidden rounded-2xl border border-[--color-border-subtle] bg-[--color-card] shadow-[0_18px_45px_rgba(3,6,15,0.35)]"
+              className="flex flex-col overflow-hidden rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-card)] shadow-[0_18px_45px_rgba(3,6,15,0.35)]"
             >
               <div className="relative h-52 w-full overflow-hidden">
                 <Image
@@ -77,14 +77,14 @@ export default function FeaturedProductsGridClient({ products }: { products: Pro
                   className="object-cover transition duration-500 hover:scale-105"
                 />
                 {product.isFeatured && (
-                  <span className="absolute left-4 top-4 rounded-full bg-[--color-accent-primary] px-3 py-1 text-xs font-bold text-[#041229]">
+                  <span className="absolute left-4 top-4 rounded-full bg-[var(--color-accent-primary)] px-3 py-1 text-xs font-bold text-[#041229]">
                     Destacado
                   </span>
                 )}
               </div>
 
               <div className="flex flex-1 flex-col gap-4 p-5">
-                <h3 className="text-lg font-semibold text-[--color-text-primary]">{displayName}</h3>
+                <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">{displayName}</h3>
                 
                 {product.price !== undefined && (
                   <div className="text-xl font-bold text-[--color-accent-secondary]">
@@ -92,7 +92,7 @@ export default function FeaturedProductsGridClient({ products }: { products: Pro
                   </div>
                 )}
 
-                <p className="text-sm text-[--color-text-muted]">
+                <p className="text-sm text-[var(--color-text-muted)]">
                   Producto destacado administrado desde Sanity CMS.
                 </p>
                 
@@ -109,7 +109,7 @@ export default function FeaturedProductsGridClient({ products }: { products: Pro
                   
                   <button
                     onClick={() => openModal(product)}
-                    className="inline-flex w-full items-center justify-center rounded-xl border border-[--color-border-subtle] py-2 text-sm font-semibold text-[--color-text-muted] transition hover:border-[--color-accent-primary] hover:text-[--color-accent-primary]"
+                    className="inline-flex w-full items-center justify-center rounded-xl border border-[var(--color-border-subtle)] py-2 text-sm font-semibold text-[var(--color-text-muted)] transition hover:border-[--color-accent-primary] hover:text-[--color-accent-primary]"
                   >
                     Ver detalles
                   </button>
