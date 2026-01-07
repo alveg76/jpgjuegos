@@ -30,5 +30,10 @@ const query = /* groq */ `
 `
 
 export async function getFeaturedProducts(): Promise<Product[]> {
-  return sanity.fetch<Product[]>(query)
+  try {
+    return await sanity.fetch<Product[]>(query)
+  } catch (error) {
+    console.error('Sanity fetch failed:', error)
+    return []
+  }
 }
