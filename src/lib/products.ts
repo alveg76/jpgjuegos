@@ -7,6 +7,9 @@ export type Product = {
   isFeatured: boolean
   image?: string | null
   price?: number
+  description?: string | null
+  youtubeUrl?: string | null
+  gallery?: string[]
 }
 
 const featuredQuery = /* groq */ `
@@ -16,7 +19,10 @@ const featuredQuery = /* groq */ `
   "slug": slug.current,
   isFeatured,
   "image": image.asset->url,
-  price
+  price,
+  description,
+  youtubeUrl,
+  "gallery": gallery[].asset->url
 }
 `
 
@@ -27,7 +33,10 @@ const slugQuery = /* groq */ `
   "slug": slug.current,
   isFeatured,
   "image": image.asset->url,
-  price
+  price,
+  description,
+  youtubeUrl,
+  "gallery": gallery[].asset->url
 }
 `
 

@@ -26,6 +26,26 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'description',
+      title: 'Descripción (para modal / ficha)',
+      type: 'text',
+      rows: 4,
+      description: 'Texto corto que se mostrará en el modal de "Ver detalles" y en la página del producto.',
+    }),
+    defineField({
+      name: 'youtubeUrl',
+      title: 'YouTube (URL opcional)',
+      type: 'url',
+      description: 'Pega la URL normal de YouTube (ej: https://www.youtube.com/watch?v=XXXX o https://youtu.be/XXXX).',
+    }),
+    defineField({
+      name: 'gallery',
+      title: 'Galería (opcional)',
+      type: 'array',
+      of: [{type: 'image', options: {hotspot: true}}],
+      description: 'Imágenes adicionales para el modal o la página de detalles.',
+    }),
+    defineField({
       name: 'category',
       title: 'Categoría',
       type: 'string',
