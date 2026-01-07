@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useCart } from "@/store/cart.store";
+import { useCart as useZustandCart } from "@/store/cart.store";
+import { useCart } from "@/components/cart/CartProvider";
 
 const primaryNav = [
   { label: "Inicio", href: "#inicio" },
@@ -18,8 +19,8 @@ const primaryNav = [
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const toggleCart = useCart((state) => state.toggle);
-  const cartCount = useCart((state) => state.count());
+  const toggleCart = useZustandCart((state) => state.toggle);
+  const { count: cartCount } = useCart();
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 8);
@@ -106,11 +107,10 @@ export default function Navbar() {
               <Link href="#login" className="font-medium text-[--color-text-muted] transition hover:text-[--color-accent-primary]">
                 Iniciar sesión / Regístrate
               </Link>
-              <button
-                type="button"
-                onClick={toggleCart}
+              <Link
+                href="/carrito"
                 className="relative inline-flex items-center gap-2 rounded-2xl border border-[--color-accent-primary]/50 px-4 py-2 text-sm font-semibold text-[--color-accent-primary] transition hover:border-[--color-accent-primary] hover:bg-[--color-accent-primary]/10"
-                aria-label="Abrir carrito"
+                aria-label="Ver carrito"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                   <circle cx="9" cy="20" r="1.5" />
@@ -122,7 +122,7 @@ export default function Navbar() {
                     {cartCount}
                   </span>
                 )}
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -186,21 +186,20 @@ export default function Navbar() {
               onClick={() => setMenuOpen(false)}
               className="rounded-2xl border border-[--color-border-subtle] px-4 py-3 text-center text-[--color-text-muted]"
             >
-              Soporte: +52 55 0000 0000
+              Soporte: +57 310 782 21 38
             </Link>
-            <button
-              type="button"
-              onClick={() => {
-                toggleCart();
-                setMenuOpen(false);
-              }}
+            <Link
+              href="/carrito"
+              onClick={() => setMenuOpen(false)}
               className="flex items-center justify-between rounded-2xl border border-[--color-accent-primary] px-4 py-3 text-[--color-accent-primary]"
             >
               <span>Carrito</span>
-              <span className="rounded-xl bg-[--color-accent-primary] px-2 py-0.5 text-xs font-bold text-[#041229]">
-                {cartCount}
-              </span>
-            </button>
+              {cartCount > 0 && (
+                <span className="rounded-xl bg-[--color-accent-primary] px-2 py-0.5 text-xs font-bold text-[#041229]">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
           </div>
         </div>
       )}

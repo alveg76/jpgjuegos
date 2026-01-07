@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Open_Sans } from "next/font/google";
 import CartDrawer from "@/components/CartDrawer";
+import { CartProvider } from "@/components/cart/CartProvider";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -90,8 +91,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Saltear al contenido
         </a>
-        {children}
-        <CartDrawer />
+        <CartProvider>
+          {children}
+          <CartDrawer />
+        </CartProvider>
       </body>
     </html>
   );

@@ -1,7 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import AddToCartButton from "@/components/cart/AddToCartButton";
 import { getFeaturedProducts } from "@/lib/products";
+
+const currency = new Intl.NumberFormat("es-CO", {
+  style: "currency",
+  currency: "COP",
+  maximumFractionDigits: 0,
+});
 
 const placeholderImage = "/images/products/placeholder.png";
 
@@ -55,13 +62,30 @@ export default async function FeaturedProductsGrid() {
 
                 <div className="flex flex-1 flex-col gap-4 p-5">
                   <h3 className="text-lg font-semibold text-[--color-text-primary]">{displayName}</h3>
+                  
+                  {product.price !== undefined && (
+                    <div className="text-xl font-bold text-[--color-accent-secondary]">
+                      {currency.format(product.price)}
+                    </div>
+                  )}
+
                   <p className="text-sm text-[--color-text-muted]">
-                    Este producto se administró desde Sanity y está marcado como destacado en la tienda.
+                    Producto destacado administrado desde Sanity CMS.
                   </p>
-                  <div className="mt-auto">
+                  
+                  <div className="mt-auto space-y-2">
+                    <AddToCartButton
+                      product={{
+                        id: product.id,
+                        name: product.name,
+                        slug: product.slug,
+                        price: product.price,
+                        image: product.image,
+                      }}
+                    />
                     <Link
                       href={`/productos/${product.slug}`}
-                      className="inline-flex w-full items-center justify-center rounded-xl border border-[--color-border-subtle] py-2 text-sm font-semibold text-[--color-accent-primary] transition hover:border-[--color-accent-primary]"
+                      className="inline-flex w-full items-center justify-center rounded-xl border border-[--color-border-subtle] py-2 text-sm font-semibold text-[--color-text-muted] transition hover:border-[--color-accent-primary] hover:text-[--color-accent-primary]"
                     >
                       Ver detalles
                     </Link>
