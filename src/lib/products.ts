@@ -1,30 +1,19 @@
 import {sanity} from './sanity.client'
 
-export type StockStatus = 'in_stock' | 'preorder' | 'out_of_stock'
-export type ProductBadge = 'NUEVO' | 'OFERTA'
-
 export type Product = {
   id: string
-  title: string
-  slug?: string
-  category: string
-  price: number
-  compareAtPrice?: number
-  badge?: ProductBadge
-  stock: StockStatus
-  image: string | null
+  name: string | null
+  slug: string
+  isFeatured: boolean
+  image?: string | null
 }
 
 const query = /* groq */ `
-*[_type == "product" && isFeatured == true] | order(_createdAt desc) {
+*[_type == "product" && isFeatured == true] | order(_updatedAt desc) {
   "id": _id,
-  title,
+  "name": coalesce(name, title),
   "slug": slug.current,
-  category,
-  price,
-  compareAtPrice,
-  badge,
-  stock,
+  isFeatured,
   "image": image.asset->url
 }
 `

@@ -1,32 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import AddToCartButton from "./AddToCartButton";
 import { getFeaturedProducts } from "@/lib/products";
-import type { StockStatus } from "@/lib/products";
-
-const currency = new Intl.NumberFormat("es-CO", {
-  style: "currency",
-  currency: "COP",
-  maximumFractionDigits: 0,
-});
 
 const placeholderImage = "/images/products/placeholder.png";
-
-const stockCopy: Record<StockStatus, { label: string; tone: string }> = {
-  in_stock: {
-    label: "Disponible",
-    tone: "bg-emerald-500/15 text-emerald-200 border-emerald-400/40",
-  },
-  preorder: {
-    label: "Preventas",
-    tone: "bg-[--color-accent-primary]/15 text-[--color-accent-primary] border-[--color-accent-primary]/40",
-  },
-  out_of_stock: {
-    label: "Agotado",
-    tone: "bg-red-500/15 text-red-300 border-red-500/40",
-  },
-};
 
 export default async function FeaturedProductsGrid() {
   const products = await getFeaturedProducts();
@@ -53,8 +30,8 @@ export default async function FeaturedProductsGrid() {
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((product) => {
-            const stock = stockCopy[product.stock] ?? stockCopy.in_stock;
             const imageSrc = product.image ?? placeholderImage;
+            const displayName = product.name ?? product.slug;
 
             return (
               <article
@@ -64,48 +41,27 @@ export default async function FeaturedProductsGrid() {
                 <div className="relative h-52 w-full overflow-hidden">
                   <Image
                     src={imageSrc}
-                    alt={product.title}
+                    alt={`Producto destacado: ${displayName}`}
                     fill
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     className="object-cover transition duration-500 hover:scale-105"
                   />
-                  {product.badge && (
+                  {product.isFeatured && (
                     <span className="absolute left-4 top-4 rounded-full bg-[--color-accent-primary] px-3 py-1 text-xs font-bold text-[#041229]">
-                      {product.badge}
+                      Destacado
                     </span>
                   )}
                 </div>
 
-                <div className="flex flex-1 flex-col gap-3 p-5">
-                  <div className="flex items-center justify-between text-xs text-[--color-text-muted]">
-                    <span>{product.category}</span>
-                    <span className={`rounded-full border px-2 py-0.5 text-[10px] uppercase tracking-[0.2em] ${stock.tone}`}>
-                      {stock.label}
-                    </span>
-                  </div>
-                  <h3 className="text-lg font-semibold text-[--color-text-primary]">{product.title}</h3>
-                  <div className="mt-2 flex items-baseline gap-3">
-                    <p className="text-2xl font-bold text-[--color-accent-secondary]">{currency.format(product.price)}</p>
-                    {product.compareAtPrice && (
-                      <p className="text-sm text-[--color-text-muted] line-through">
-                        {currency.format(product.compareAtPrice)}
-                      </p>
-                    )}
-                  </div>
-                  <div className="mt-auto flex flex-col gap-3">
-                    <AddToCartButton
-                      product={{
-                        id: product.id,
-                        title: product.title,
-                        price: product.price,
-                        image: product.image ?? undefined,
-                      }}
-                      disabled={product.stock === "out_of_stock"}
-                      label={product.stock === "out_of_stock" ? "Notificarme" : "Agregar al carrito"}
-                    />
+                <div className="flex flex-1 flex-col gap-4 p-5">
+                  <h3 className="text-lg font-semibold text-[--color-text-primary]">{displayName}</h3>
+                  <p className="text-sm text-[--color-text-muted]">
+                    Este producto se administró desde Sanity y está marcado como destacado en la tienda.
+                  </p>
+                  <div className="mt-auto">
                     <Link
-                      href={product.slug ? `/productos/${product.slug}` : "#contacto"}
-                      className="text-center text-sm font-semibold text-[--color-text-muted] transition hover:text-[--color-accent-primary]"
+                      href={`/productos/${product.slug}`}
+                      className="inline-flex w-full items-center justify-center rounded-xl border border-[--color-border-subtle] py-2 text-sm font-semibold text-[--color-accent-primary] transition hover:border-[--color-accent-primary]"
                     >
                       Ver detalles
                     </Link>
