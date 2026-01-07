@@ -7,7 +7,6 @@
  * https://github.com/sanity-io/next-sanity
  */
 
-import { redirect } from 'next/navigation'
 import { NextStudio } from 'next-sanity/studio'
 import config from '../../../../sanity.config'
 
@@ -15,16 +14,6 @@ export const dynamic = 'force-static'
 
 export { metadata, viewport } from 'next-sanity/studio'
 
-type Props = {
-  params: {
-    tool?: string[]
-  }
-}
-
-export default function StudioPage({params}: Props) {
-  if (!params?.tool || params.tool.length === 0) {
-    redirect('/admin/structure')
-  }
-
+export default function StudioPage() {
   return <NextStudio config={config} />
 }
