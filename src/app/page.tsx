@@ -17,21 +17,22 @@ const storeSchema = {
   url: SITE_URL,
   logo: `${SITE_URL}/images/logoJPG-header.png`,
   sameAs: ["https://www.instagram.com/jpgjuegos", "https://www.facebook.com/jpgjuegos"],
-  telephone: "+57-601-000-0000",
-  email: "hola@jpgjuegos.com",
+  telephone: "+57-310-782-2138",
+  email: "contacto@jpgjuegos.com",
   description:
     "Tienda de juegos de mesa y estrategia con operación en Bogotá y envíos a toda Colombia.",
   openingHoursSpecification: {
     "@type": "OpeningHoursSpecification",
     dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-    opens: "11:00",
-    closes: "20:00",
+    opens: "10:00",
+    closes: "19:00",
   },
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Bogotá D.C.",
+    streetAddress: "Calle 85 #15-45",
     addressLocality: "Bogotá",
-    postalCode: "110111",
+    addressRegion: "Cundinamarca",
+    postalCode: "110221",
     addressCountry: "CO",
   },
   areaServed: {

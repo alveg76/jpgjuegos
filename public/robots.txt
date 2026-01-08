@@ -1,7 +1,0 @@
-
-quede en el paso 4 punto 4 ya deje los iconos
-
-
-User-agent: *
-Allow: /
-Sitemap: https://www.mjgbiologa.com/sitemap.xml
