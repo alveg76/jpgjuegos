@@ -62,6 +62,7 @@ export default function FeaturedProductsGridClient({ products }: { products: Pro
         {products.map((product) => {
           const imageSrc = product.image ?? placeholderImage;
           const displayName = product.name ?? product.slug;
+          const isAvailable = product.stock === 'in_stock';
 
           return (
             <article
@@ -71,16 +72,18 @@ export default function FeaturedProductsGridClient({ products }: { products: Pro
               <div className="relative h-52 w-full overflow-hidden">
                 <Image
                   src={imageSrc}
-                  alt={`Producto destacado: ${displayName}`}
+                  alt={`Producto: ${displayName}`}
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   className="object-cover transition duration-500 hover:scale-105"
                 />
-                {product.isFeatured && (
-                  <span className="absolute left-4 top-4 rounded-full bg-[var(--color-accent-primary)] px-3 py-1 text-xs font-bold text-[#041229]">
-                    Destacado
-                  </span>
-                )}
+                <span className={`absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-bold ${
+                  isAvailable
+                    ? 'bg-green-500 text-white'
+                    : 'bg-red-500 text-white'
+                }`}>
+                  {isAvailable ? '✓ Disponible' : '✗ Agotado'}
+                </span>
               </div>
 
               <div className="flex flex-1 flex-col gap-4 p-5">
@@ -93,7 +96,7 @@ export default function FeaturedProductsGridClient({ products }: { products: Pro
                 )}
 
                 <p className="text-sm text-[var(--color-text-muted)]">
-                  Producto destacado administrado desde Sanity CMS.
+                  {product.description || 'Juego de mesa para disfrutar en familia'}
                 </p>
                 
                 <div className="mt-auto grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -105,6 +108,8 @@ export default function FeaturedProductsGridClient({ products }: { products: Pro
                       price: product.price,
                       image: product.image,
                     }}
+                    disabled={!isAvailable}
+                    label={isAvailable ? 'Agregar' : 'Agotado'}
                   />
                   
                   <button

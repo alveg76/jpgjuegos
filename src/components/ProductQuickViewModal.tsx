@@ -16,57 +16,10 @@ const currency = new Intl.NumberFormat("es-CO", {
   maximumFractionDigits: 0,
 });
 
-function toYouTubeEmbedUrl(url: string): string | null {
-  try {
-    const u = new URL(url);
-
-    // youtu.be/VIDEO_ID
-    if (u.hostname.includes("youtu.be")) {
-      const id = u.pathname.replace("/", "").trim();
-      return id ? `https://www.youtube.com/embed/${id}` : null;
-    }
-
-    // youtube.com/watch?v=VIDEO_ID
-    if (u.hostname.includes("youtube.com")) {
-      const id = u.searchParams.get("v");
-      if (id) return `https://www.youtube.com/embed/${id}`;
-
-      // youtube.com/embed/VIDEO_ID
-      const parts = u.pathname.split("/").filter(Boolean);
-      const embedIndex = parts.indexOf("embed");
-      if (embedIndex !== -1 && parts[embedIndex + 1]) {
-        return `https://www.youtube.com/embed/${parts[embedIndex + 1]}`;
-      }
-
-      // youtube.com/shorts/VIDEO_ID
-      const shortsIndex = parts.indexOf("shorts");
-      if (shortsIndex !== -1 && parts[shortsIndex + 1]) {
-        return `https://www.youtube.com/embed/${parts[shortsIndex + 1]}`;
-      }
-    }
-
-    return null;
-  } catch {
-    return null;
-  }
-}
-
 export default function ProductQuickViewModal({ open, onClose, product }: Props) {
   if (!open || !product) return null;
 
-  const embed = product.youtubeUrl ? toYouTubeEmbedUrl(product.youtubeUrl) : null;
-
-  const media = embed ? (
-    <div className="aspect-video w-full overflow-hidden rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-panel)]">
-      <iframe
-        className="h-full w-full"
-        src={embed}
-        title={product.name || "Video del producto"}
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      />
-    </div>
-  ) : product.image ? (
+  const media = product.image ? (
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={product.image}
@@ -108,20 +61,6 @@ export default function ProductQuickViewModal({ open, onClose, product }: Props)
         <div className="mt-5 grid gap-5 md:grid-cols-2">
           <div className="space-y-3">
             {media}
-
-            {product.gallery?.length ? (
-              <div className="flex gap-2 overflow-x-auto pb-1">
-                {product.gallery.map((url, i) => (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    key={`${url}-${i}`}
-                    src={url}
-                    alt={`${product.name || "Producto"} ${i + 1}`}
-                    className="h-20 w-28 flex-none rounded-xl border border-[var(--color-border-subtle)] bg-[var(--color-panel)] object-cover"
-                  />
-                ))}
-              </div>
-            ) : null}
           </div>
 
           <div className="space-y-4">
@@ -137,8 +76,51 @@ export default function ProductQuickViewModal({ open, onClose, product }: Props)
               <p className="mt-2 whitespace-pre-wrap text-[var(--color-text-primary)]">
                 {product.description?.trim()
                   ? product.description
-                  : "Agrega una descripción en Sanity para que aparezca aquí."}
+                  : "No hay descripción disponible."}
               </p>
+            </div>
+
+            {product.components && product.components.length > 0 && (
+              <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-panel)] p-4">
+                <div className="text-[var(--color-text-muted)]">Componentes del Juego</div>
+                <ul className="mt-2 space-y-1 text-[var(--color-text-primary)]">
+                  {product.components.map((component, i) => (
+                    <li key={i} className="flex items-center gap-2 text-sm">
+                      <span className="inline-block h-1.5 w-1.5 rounded-full bg-[--color-accent-secondary]" />
+                      {component}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <div className="grid gap-2 md:grid-cols-2">
+              {product.players && (
+                <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-panel)] p-4">
+                  <div className="text-xs text-[var(--color-text-muted)]">Jugadores</div>
+                  <p className="mt-1 font-medium text-[var(--color-text-primary)]">{product.players}</p>
+                </div>
+              )}
+              {product.duration && (
+                <div className="rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-panel)] p-4">
+                  <div className="text-xs text-[var(--color-text-muted)]">Duración</div>
+                  <p className="mt-1 font-medium text-[var(--color-text-primary)]">{product.duration}</p>
+                </div>
+              )}
+            </div>
+
+            <div className={`rounded-2xl border p-4 ${
+              product.stock === 'in_stock'
+                ? 'border-green-500/30 bg-green-500/10'
+                : 'border-red-500/30 bg-red-500/10'
+            }`}>
+              <div className={`text-sm font-semibold ${
+                product.stock === 'in_stock'
+                  ? 'text-green-600'
+                  : 'text-red-600'
+              }`}>
+                {product.stock === 'in_stock' ? '✓ Disponible' : '✗ Agotado'}
+              </div>
             </div>
 
             <AddToCartButton
@@ -149,6 +131,8 @@ export default function ProductQuickViewModal({ open, onClose, product }: Props)
                 price: product.price,
                 image: product.image,
               }}
+              disabled={product.stock === 'out_of_stock'}
+              label={product.stock === 'out_of_stock' ? 'Agotado' : 'Agregar al carrito'}
             />
           </div>
         </div>

@@ -54,11 +54,6 @@ export default async function ProductPage({
         <div className="flex flex-col gap-6">
           <div>
             <h1 className="text-3xl font-semibold text-[--color-text-primary]">{displayName}</h1>
-            {product.isFeatured && (
-              <span className="mt-2 inline-block rounded-full bg-[--color-accent-primary]/20 px-3 py-1 text-xs font-bold text-[--color-accent-primary]">
-                Producto Destacado
-              </span>
-            )}
           </div>
 
           {product.price !== undefined && (
@@ -67,15 +62,68 @@ export default async function ProductPage({
             </div>
           )}
 
-          <div className="rounded-xl border border-[--color-border-subtle] bg-[--color-panel] p-4">
-            <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-[--color-text-muted]">
-              Descripción
-            </h2>
-            <p className="text-[--color-text-primary]">
-              Este producto está administrado desde Sanity CMS y marcado como destacado en JPG Juegos. 
-              Contáctanos para más información sobre disponibilidad y características.
-            </p>
+          <div className={`rounded-xl border p-4 ${
+            product.stock === 'in_stock'
+              ? 'border-green-500/30 bg-green-500/10'
+              : 'border-red-500/30 bg-red-500/10'
+          }`}>
+            <div className={`text-sm font-semibold ${
+              product.stock === 'in_stock'
+                ? 'text-green-600'
+                : 'text-red-600'
+            }`}>
+              {product.stock === 'in_stock' ? '✓ Disponible' : '✗ Agotado'}
+            </div>
           </div>
+
+          {product.description && (
+            <div className="rounded-xl border border-[--color-border-subtle] bg-[--color-panel] p-4">
+              <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-[--color-text-muted]">
+                Descripción
+              </h2>
+              <p className="text-[--color-text-primary]">
+                {product.description}
+              </p>
+            </div>
+          )}
+
+          {product.players && (
+            <div className="rounded-xl border border-[--color-border-subtle] bg-[--color-panel] p-4">
+              <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-[--color-text-muted]">
+                Jugadores
+              </h2>
+              <p className="text-[--color-text-primary]">
+                {product.players}
+              </p>
+            </div>
+          )}
+
+          {product.duration && (
+            <div className="rounded-xl border border-[--color-border-subtle] bg-[--color-panel] p-4">
+              <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-[--color-text-muted]">
+                Duración
+              </h2>
+              <p className="text-[--color-text-primary]">
+                {product.duration}
+              </p>
+            </div>
+          )}
+
+          {product.components && product.components.length > 0 && (
+            <div className="rounded-xl border border-[--color-border-subtle] bg-[--color-panel] p-4">
+              <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-[--color-text-muted]">
+                Componentes del Juego
+              </h2>
+              <ul className="space-y-1 text-[--color-text-primary]">
+                {product.components.map((component, i) => (
+                  <li key={i} className="flex items-center gap-2 text-sm">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-[--color-accent-secondary]" />
+                    {component}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           <div className="mt-auto space-y-3">
             <AddToCartButton
@@ -86,7 +134,8 @@ export default async function ProductPage({
                 price: product.price,
                 image: product.image,
               }}
-              label="Agregar al carrito"
+              disabled={product.stock === 'out_of_stock'}
+              label={product.stock === 'out_of_stock' ? 'Agotado' : 'Agregar al carrito'}
             />
             <Link
               href="/#contacto"
