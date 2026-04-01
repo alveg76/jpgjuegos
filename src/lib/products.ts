@@ -22,7 +22,8 @@ interface CSVRow {
   Nombre: string
   Precio: string
   Stock: string
-  'Jugadores Edad': string
+  Jugadores?: string
+  Edad?: string
   Tiempo: string
   Descripcion_Corta: string
   Contenido: string
@@ -91,19 +92,43 @@ export async function fetchProductsFromCSV(): Promise<Product[]> {
     const response = await fetch(CSV_URL)
     const csvText = await response.text()
     console.log('CSV fetched, length:', csvText.length)
+    
+    // Remove leading empty lines before parsing
+    const cleanedCSV = csvText.split('\n').filter((line, idx) => {
+      // Skip the first empty lines but keep data
+      return line.trim().length > 0 || idx > 10
+    }).join('\n')
+    
+    console.log('Cleaned CSV length:', cleanedCSV.length)
 
     return new Promise((resolve, reject) => {
-      Papa.parse<CSVRow>(csvText, {
+      Papa.parse<CSVRow>(cleanedCSV, {
         header: true,
         skipEmptyLines: true,
         dynamicTyping: false,
         complete: (results) => {
-          console.log('CSV parsed, rows:', results.data.length)
+          console.log('CSV parsed, raw rows:', results.data.length)
+          console.log('First row sample:', results.data[0])
+          
           const products: Product[] = results.data
-            .filter((row: CSVRow) => row.Nombre && row.Nombre.trim()) // Filtrar filas vacías
+            .filter((row: CSVRow) => {
+              // Only keep rows that have a Nombre field with actual content
+              const hasName = row.Nombre && typeof row.Nombre === 'string' && row.Nombre.trim().length > 0
+              if (!hasName) {
+                console.log('Skipping row without name:', row)
+              }
+              return hasName
+            })
             .map((row: CSVRow, index: number) => {
               const price = parseFloat(row.Precio) || 0
               const stock = parseInt(row.Stock, 10) || 0
+              
+              // Combine Jugadores and Edad fields
+              const players = [row.Jugadores, row.Edad]
+                .filter((val) => val && val.trim())
+                .join(' ')
+              
+              console.log(`Processing product ${index + 1}:`, row.Nombre, 'Price:', price, 'Stock:', stock, 'Players:', players)
 
               return {
                 id: row.ID || `product-${index}`,
@@ -114,13 +139,16 @@ export async function fetchProductsFromCSV(): Promise<Product[]> {
                 description: row.Descripcion_Corta?.trim() || null,
                 stock: parseStock(stock),
                 components: parseComponents(row.Contenido),
-                players: row['Jugadores Edad']?.trim() || null,
+                players: players || null,
                 duration: row.Tiempo?.trim() || null,
                 category: 'Juegos de Mesa',
               }
             })
 
           console.log('Products processed:', products.length)
+          if (products.length === 0) {
+            console.warn('No products found after filtering!')
+          }
           resolve(products)
         },
         error: (error: Error) => {
