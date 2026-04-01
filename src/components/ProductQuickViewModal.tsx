@@ -24,7 +24,7 @@ export default function ProductQuickViewModal({ open, onClose, product }: Props)
     <img
       src={product.image}
       alt={product.name || "Producto"}
-      crossOrigin="anonymous"
+      referrerPolicy="no-referrer"
       className="w-full rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-panel)] object-contain"
     />
   ) : (

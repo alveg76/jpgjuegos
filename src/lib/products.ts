@@ -87,8 +87,10 @@ function transformDriveImageUrl(url: string): string {
 
 export async function fetchProductsFromCSV(): Promise<Product[]> {
   try {
+    console.log('Fetching CSV from:', CSV_URL)
     const response = await fetch(CSV_URL)
     const csvText = await response.text()
+    console.log('CSV fetched, length:', csvText.length)
 
     return new Promise((resolve, reject) => {
       Papa.parse<CSVRow>(csvText, {
@@ -96,6 +98,7 @@ export async function fetchProductsFromCSV(): Promise<Product[]> {
         skipEmptyLines: true,
         dynamicTyping: false,
         complete: (results) => {
+          console.log('CSV parsed, rows:', results.data.length)
           const products: Product[] = results.data
             .filter((row: CSVRow) => row.Nombre && row.Nombre.trim()) // Filtrar filas vacías
             .map((row: CSVRow, index: number) => {
@@ -117,6 +120,7 @@ export async function fetchProductsFromCSV(): Promise<Product[]> {
               }
             })
 
+          console.log('Products processed:', products.length)
           resolve(products)
         },
         error: (error: Error) => {

@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/lib/products";
 import AddToCartButton from "@/components/cart/AddToCartButton";
@@ -37,7 +36,7 @@ export default function FeaturedProductsGridClient({ products }: { products: Pro
           <h2 className="mt-2 text-3xl font-semibold text-[var(--color-text-primary)]">Favoritos en mesa y aula</h2>
         </div>
         <div className="rounded-2xl border border-dashed border-[var(--color-border-subtle)] bg-[var(--color-card)] p-10 text-center text-[var(--color-text-muted)]">
-          Aún no hay productos destacados en Sanity. Marca algunos como &quot;Destacar en home&quot; para que aparezcan aquí.
+          No hay productos disponibles. Verifica que el Google Sheet esté actualizado.
         </div>
       </section>
     );
@@ -70,13 +69,12 @@ export default function FeaturedProductsGridClient({ products }: { products: Pro
               className="flex flex-col overflow-hidden rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-card)] shadow-[0_18px_45px_rgba(3,6,15,0.35)]"
             >
               <div className="relative h-52 w-full overflow-hidden">
-                <Image
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src={imageSrc}
                   alt={`Producto: ${displayName}`}
-                  fill
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  crossOrigin="anonymous"
-                  className="object-cover transition duration-500 hover:scale-105"
+                  referrerPolicy="no-referrer"
+                  className="h-full w-full object-cover transition duration-500 hover:scale-105"
                 />
                 <span className={`absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-bold ${
                   isAvailable
