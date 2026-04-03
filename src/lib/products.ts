@@ -1,5 +1,6 @@
 import Papa from 'papaparse'
 
+// Last updated: April 3 2026 - Force rebuild
 export type Product = {
   id: string
   name: string | null
