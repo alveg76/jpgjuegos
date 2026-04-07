@@ -3,6 +3,9 @@ import Hero from "@/components/Hero";
 import TrustBar from "@/components/TrustBar";
 import CategoryStrip from "@/components/CategoryStrip";
 import FeaturedProductsGrid from "@/components/FeaturedProductsGrid";
+
+// Re-fetch CSV every hour so catalog updates are reflected without a full redeploy
+export const revalidate = 3600;
 import DealsOfWeek from "@/components/DealsOfWeek";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import Footer from "@/components/Footer";

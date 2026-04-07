@@ -55,35 +55,25 @@ function parseStock(stockValue: string | number): 'in_stock' | 'out_of_stock' {
 
 function transformDriveImageUrl(url: string): string {
   if (!url) return ''
-  
-  // Extract file ID from Google Drive URLs
-  // Handles formats like:
-  // https://drive.google.com/uc?export=view&id=FILE_ID
-  // https://drive.google.com/file/d/FILE_ID/view
-  // https://drive.google.com/open?id=FILE_ID
-  
+
   let fileId = ''
-  
-  // Try to extract from ?id= parameter
+
+  // Try to extract from ?id= parameter (uc?export=view&id=FILE_ID)
   const idMatch = url.match(/[?&]id=([a-zA-Z0-9-_]+)/)
-  if (idMatch) {
-    fileId = idMatch[1]
-  }
-  
-  // Try to extract from /d/FILE_ID/ pattern
+  if (idMatch) fileId = idMatch[1]
+
+  // Try to extract from /d/FILE_ID/ pattern (file/d/FILE_ID/view)
   if (!fileId) {
     const pathMatch = url.match(/\/d\/([a-zA-Z0-9-_]+)/)
-    if (pathMatch) {
-      fileId = pathMatch[1]
-    }
+    if (pathMatch) fileId = pathMatch[1]
   }
-  
-  // If we found a file ID, use the reliable Google Drive export URL
+
+  // Use /thumbnail endpoint — returns image directly without redirects or cookies
+  // This works cross-origin from Vercel without being blocked by the browser
   if (fileId) {
-    return `https://drive.google.com/uc?export=view&id=${fileId}`
+    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w800`
   }
-  
-  // Return original URL if we can't extract ID
+
   return url
 }
 
