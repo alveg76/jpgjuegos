@@ -1,11 +1,13 @@
 import Papa from 'papaparse'
 
-// Last updated: April 3 2026 - Force rebuild
+// Last updated: April 7 2026 - Gallery + Video support
 export type Product = {
   id: string
   name: string | null
   slug: string
   image?: string | null
+  gallery: string[]          // extra images (excluding main image)
+  youtubeUrl: string | null  // YouTube video URL
   price?: number
   description?: string | null
   stock: 'in_stock' | 'out_of_stock'
@@ -29,6 +31,8 @@ interface CSVRow {
   Descripcion_Corta: string
   Contenido: string
   Imagen_URL: string
+  Imagenes_Extra?: string   // comma-separated Drive URLs
+  Video_URL?: string        // YouTube URL
 }
 
 function generateSlug(name: string): string {
@@ -121,11 +125,19 @@ export async function fetchProductsFromCSV(): Promise<Product[]> {
               
               console.log(`Processing product ${index + 1}:`, row.Nombre, 'Price:', price, 'Stock:', stock, 'Players:', players)
 
+              // Parse extra images from comma-separated Drive URLs
+              const extraImages = (row.Imagenes_Extra || '')
+                .split(',')
+                .map((u) => transformDriveImageUrl(u.trim()))
+                .filter((u) => u.length > 0)
+
               return {
                 id: row.ID || `product-${index}`,
                 name: row.Nombre?.trim() || null,
                 slug: generateSlug(row.Nombre || `product-${index}`),
                 image: transformDriveImageUrl(row.Imagen_URL?.trim() || ''),
+                gallery: extraImages,
+                youtubeUrl: row.Video_URL?.trim() || null,
                 price,
                 description: row.Descripcion_Corta?.trim() || null,
                 stock: parseStock(stock),
