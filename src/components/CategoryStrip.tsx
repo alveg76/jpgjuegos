@@ -119,28 +119,28 @@ const categories = [
 export default function CategoryStrip() {
   return (
     <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8" aria-label="Categorías de JPG Juegos">
-      <div className="soft-card overflow-hidden border border-[--color-border-subtle]/80 bg-[--color-panel-soft]/70 p-6">
+      <div className="mario-card p-6 border-4 border-mario-brown">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs uppercase tracking-[0.5em] text-[--color-text-muted]">Colecciones</p>
-            <h2 className="mt-2 text-2xl font-semibold text-[--color-text-primary]">Explora según tu mood de juego</h2>
+            <p className="text-xs uppercase tracking-widest text-mario-brown font-bold">🎮 Colecciones</p>
+            <h2 className="mt-2 text-3xl font-bold text-mario-red">Explora según tu mood de juego</h2>
           </div>
-          <span className="hidden text-sm font-semibold text-[--color-accent-primary] md:inline">Ver todo</span>
+          <span className="hidden text-sm font-bold text-mario-red md:inline">Ver todo →</span>
         </div>
         <div className="mt-6 flex gap-4 overflow-x-auto pb-2">
           {categories.map((category) => (
             <a
               key={category.id}
               href={`#${category.id}`}
-              className="min-w-[180px] flex-1 rounded-2xl border border-[--color-border-subtle] bg-[--color-panel] p-4 transition hover:border-[--color-accent-primary] hover:-translate-y-1"
+              className="mario-card min-w-[180px] flex-1 p-4 transition hover:shadow-mario-card hover:bg-mario-yellow border-3 border-mario-brown"
             >
-              <div className="flex items-center justify-between text-lg font-semibold text-[--color-text-primary]">
+              <div className="flex items-center justify-between text-lg font-bold text-mario-red">
                 <span>{category.label}</span>
-                <span className="h-8 w-8 text-[--color-accent-primary]" aria-hidden>
+                <span className="h-8 w-8 text-mario-red" aria-hidden>
                   {category.icon}
                 </span>
               </div>
-              <p className="mt-2 text-sm text-[--color-text-muted]">{category.description}</p>
+              <p className="mt-2 text-sm text-mario-brown font-semibold">{category.description}</p>
             </a>
           ))}
         </div>

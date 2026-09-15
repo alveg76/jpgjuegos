@@ -1,58 +1,62 @@
 const deals = [
   {
-    id: "bundle-deluxe",
-    title: "Bundle deluxe mesa + tapete",
-    description: "Lleva Vault of Echoes + tapete neopreno + stand acrílico.",
+    id: "exploding-kittens",
+    title: "Exploding Kittens NSFW",
+    description: "Juego de cartas NSFW con ilustras manuales, 1 caja original.",
+    discount: "-15%",
+    code: "KITTENS15",
+    expires: "Stock limitado: 12 unidades",
+    price: "90.000 COP",
+  },
+  {
+    id: "carcassonne-base",
+    title: "Carcassonne Base",
+    description: "Construye territorios medievales. Incluye losetas modulares para crear 72 losetas.",
     discount: "-18%",
-    code: "NEXUSDELUXE",
-    expires: "Expira domingo 23:59",
+    code: "CARCASS18",
+    expires: "Stock limitado: 8 unidades",
+    price: "120.000 COP",
   },
   {
-    id: "tcg-hold",
-    title: "Combo TCG + hold",
-    description: "Box Mythborn + sleeves dual + hold gratuito 7 días.",
-    discount: "-12%",
-    code: "HOLDMYTH",
-    expires: "Limitado a 60 combos",
-  },
-  {
-    id: "rpg-night",
-    title: "Kit noche de rol",
-    description: "Veil of Stars + set de dados metal + velas LED.",
+    id: "catan-expansion",
+    title: "Catan expansión 5-6 jugadores",
+    description: "Expande tus partidas de Catan. Fichas, cartas adicionales y reglas incluidas.",
     discount: "-20%",
-    code: "ROLNEXUS",
-    expires: "Incluye envío express",
+    code: "CATAN20",
+    expires: "Stock limitado: 10 unidades",
+    price: "90.000 COP",
   },
 ];
 
 export default function DealsOfWeek() {
   return (
     <section id="deals" className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div className="soft-card border border-[--color-border-subtle] bg-[--color-panel] p-8">
+      <div className="mario-card p-8 border-4 border-mario-brown">
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="text-xs uppercase tracking-[0.5em] text-[--color-text-muted]">Deals of the week</p>
-            <h2 className="mt-2 text-3xl font-semibold text-[--color-text-primary]">Ofertas que se van en horas</h2>
-            <p className="text-sm text-[--color-text-muted]">Stackea con XP Rewards y obtén boosters sorpresa en pedidos mayores a $2,500 MXN.</p>
+            <p className="text-xs uppercase tracking-widest text-mario-brown font-bold">🎁 Deals of the Week</p>
+            <h2 className="mt-2 text-3xl font-bold text-mario-red">Ofertas que se van en horas</h2>
+            <p className="text-sm text-mario-brown font-semibold">Stackea con XP Rewards y obtén boosters sorpresa en pedidos mayores a $100.000.</p>
           </div>
-          <span className="text-sm font-semibold text-[--color-accent-secondary]">Actualizado hoy</span>
+          <span className="mario-badge">Actualizado hoy</span>
         </div>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {deals.map((deal) => (
-            <article key={deal.id} className="flex flex-col gap-4 rounded-2xl border border-[--color-border-subtle] bg-[--color-card] p-6">
+            <article key={deal.id} className="mario-card flex flex-col gap-4 p-6 border-3 border-mario-brown">
               <div className="flex items-center justify-between">
-                <p className="text-base font-semibold text-[--color-text-primary]">{deal.title}</p>
-                <span className="rounded-full bg-[--color-accent-primary]/15 px-3 py-1 text-xs font-bold text-[--color-accent-primary]">
+                <p className="text-base font-bold text-mario-red">{deal.title}</p>
+                <span className="mario-badge bg-mario-yellow text-mario-red">
                   {deal.discount}
                 </span>
               </div>
-              <p className="text-sm text-[--color-text-muted]">{deal.description}</p>
-              <div className="rounded-2xl border border-dashed border-[--color-border-strong] bg-[--color-panel-soft] px-4 py-3 text-center text-sm font-semibold tracking-[0.3em] text-[--color-text-primary]">
+              <p className="text-lg font-bold text-mario-yellow border-b-2 border-mario-yellow pb-2">{deal.price}</p>
+              <p className="text-sm text-mario-brown font-semibold">{deal.description}</p>
+              <div className="rounded-lg border-2 border-dashed border-mario-brown bg-mario-cream px-4 py-3 text-center text-sm font-bold tracking-widest text-mario-red">
                 {deal.code}
               </div>
-              <p className="text-xs uppercase tracking-[0.4em] text-[--color-text-muted]">{deal.expires}</p>
-              <button className="rounded-2xl border border-[--color-accent-primary]/50 px-4 py-2 text-sm font-semibold text-[--color-accent-primary] transition hover:border-[--color-accent-primary] hover:bg-[--color-accent-primary]/10">
-                Canjear ahora
+              <p className="text-xs uppercase tracking-widest text-mario-brown font-bold">{deal.expires}</p>
+              <button className="mario-button text-sm font-bold">
+                ⭐ Canjear ahora
               </button>
             </article>
           ))}

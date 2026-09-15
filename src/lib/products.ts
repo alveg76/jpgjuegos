@@ -17,7 +17,7 @@ export type Product = {
   category?: string | null
 }
 
-const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQb5kakxhsG07GTrj2L9kLU3pngpqwjQtjmkVgm-sUISjGQRqOAu1pT70pUc581Qg/pub?output=csv'
+const CSV_URL = 'https://docs.google.com/spreadsheets/d/1vfv7ksagPWZOrFdu3TsS1iJCZitNGqeZ/export?format=csv&gid=970953206'
 
 // Mapear encabezados del CSV a propiedades del producto
 interface CSVRow {
@@ -25,14 +25,13 @@ interface CSVRow {
   Nombre: string
   Precio: string
   Stock: string
-  Jugadores?: string
-  Edad?: string
+  Jugadores: string
+  Edad: string
   Tiempo: string
   Descripcion_Corta: string
+  Descripcion_Larga?: string
   Contenido: string
   Imagen_URL: string
-  Imagenes_Extra?: string   // comma-separated Drive URLs
-  Video_URL?: string        // YouTube URL
 }
 
 function generateSlug(name: string): string {
@@ -125,24 +124,18 @@ export async function fetchProductsFromCSV(): Promise<Product[]> {
               
               console.log(`Processing product ${index + 1}:`, row.Nombre, 'Price:', price, 'Stock:', stock, 'Players:', players)
 
-              // Parse extra images from comma-separated Drive URLs
-              const extraImages = (row.Imagenes_Extra || '')
-                .split(',')
-                .map((u) => transformDriveImageUrl(u.trim()))
-                .filter((u) => u.length > 0)
-
               return {
                 id: row.ID || `product-${index}`,
                 name: row.Nombre?.trim() || null,
                 slug: generateSlug(row.Nombre || `product-${index}`),
                 image: transformDriveImageUrl(row.Imagen_URL?.trim() || ''),
-                gallery: extraImages,
-                youtubeUrl: row.Video_URL?.trim() || null,
+                gallery: [],
+                youtubeUrl: null,
                 price,
                 description: row.Descripcion_Corta?.trim() || null,
                 stock: parseStock(stock),
                 components: parseComponents(row.Contenido),
-                players: players || null,
+                players,
                 duration: row.Tiempo?.trim() || null,
                 category: 'Juegos de Mesa',
               }

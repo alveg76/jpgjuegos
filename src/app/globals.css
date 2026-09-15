@@ -1,22 +1,24 @@
-/* src/app/globals.css — Tailwind v4 */
+/* src/app/globals.css — Mario Bros Theme */
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-open-sans, "Space Grotesk", ui-sans-serif, system-ui);
+  --font-sans: var(--font-open-sans, "Segoe UI", ui-sans-serif, system-ui);
   --font-serif: var(--font-playfair-display, "Chakra Petch", ui-serif, Georgia);
+  --font-pixel: "Press Start 2P", monospace;
 
-  --color-surface: #050914;
-  --color-surface-contrast: #091024;
-  --color-panel: #0f1729;
-  --color-panel-soft: #141f39;
-  --color-card: #111a2d;
-  --color-accent-primary: #7dd3fc;
-  --color-accent-secondary: #f5cc7b;
-  --color-accent-tertiary: #9a8cff;
-  --color-text-primary: #f4f7ff;
-  --color-text-muted: #8d96b8;
-  --color-border-subtle: #1e2942;
-  --color-border-strong: #324068;
+  /* Mario Bros Color Palette */
+  --color-surface: #6B8CFF;
+  --color-surface-contrast: #5C94FC;
+  --color-panel: #7A9AFF;
+  --color-panel-soft: #8BA5FF;
+  --color-card: #FFFFFF;
+  --color-accent-primary: #E52521;
+  --color-accent-secondary: #FBD000;
+  --color-accent-tertiary: #00A800;
+  --color-text-primary: #1F1F1F;
+  --color-text-muted: #666666;
+  --color-border-subtle: #DDD8D1;
+  --color-border-strong: #E52521;
 }
 
 :root,
@@ -27,18 +29,13 @@ body {
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
   font-family: var(--font-sans);
   color: var(--color-text-primary);
-  background-color: var(--color-surface);
-  background-image:
-    radial-gradient(circle at 20% 20%, rgba(24, 37, 75, 0.9) 0, transparent 45%),
-    radial-gradient(circle at 80% 0%, rgba(24, 33, 63, 0.8) 0, transparent 35%),
-    radial-gradient(circle at 50% 80%, rgba(125, 211, 252, 0.05), transparent 45%),
-    linear-gradient(135deg, rgba(9, 16, 36, 0.92), rgba(5, 9, 20, 0.97));
+  background: linear-gradient(180deg, #6B8CFF 0%, #8BA5FF 50%, #A8C5FF 100%);
   background-attachment: fixed;
   min-height: 100%;
 }
@@ -51,53 +48,194 @@ h5,
 h6 {
   font-family: var(--font-serif);
   letter-spacing: -0.01em;
+  color: var(--color-text-primary);
 }
 
 ::selection {
-  background-color: color-mix(in srgb, var(--color-accent-primary) 60%, transparent);
-  color: #041229;
+  background-color: #E52521;
+  color: #FFFFFF;
 }
 
 :where(section[id], h2[id], h3[id], div[id]) {
   scroll-margin-top: 6rem;
 }
 
-/* Helper styles */
+/* Mario-style card */
+.mario-card {
+  background: #FFFFFF;
+  border: 3px solid #1F1F1F;
+  border-radius: 12px;
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.mario-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Mario-style button */
+.mario-button {
+  background: #E52521;
+  color: #FFFFFF;
+  border: 3px solid #8B0000;
+  border-radius: 8px;
+  font-weight: bold;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 0 #8B0000;
+}
+
+.mario-button:hover {
+  background: #CC1F1C;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #8B0000;
+}
+
+.mario-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #8B0000;
+}
+
+/* Mario-style secondary button - Green */
+.mario-button-secondary {
+  background: #00A800;
+  color: #FFFFFF;
+  border: 3px solid #006600;
+  border-radius: 8px;
+  font-weight: bold;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 0 #006600;
+}
+
+.mario-button-secondary:hover {
+  background: #008C00;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #006600;
+}
+
+.mario-button-secondary:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #006600;
+}
+
+/* Mario badge styling */
+.mario-badge {
+  background: #FBD000;
+  color: #6B8CFF;
+  border: 2px solid #8B4513;
+  border-radius: 9999px;
+  padding: 8px 16px;
+  font-weight: bold;
+  font-size: 12px;
+  box-shadow: 0 4px 0 rgba(139, 69, 19, 0.3);
+}
+
+.mario-button:disabled {
+  background: #999999;
+  border-color: #666666;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 4px 0 #666666;
+}
+
+/* Mario secondary button */
+.mario-button-secondary {
+  background: #00A800;
+  color: #FFFFFF;
+  border: 3px solid #006600;
+  border-radius: 8px;
+  font-weight: bold;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 0 #006600;
+}
+
+.mario-button-secondary:hover {
+  background: #009400;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #006600;
+}
+
+.mario-button-secondary:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #006600;
+}
+
+/* Mario badge/tag */
+.mario-badge {
+  background: #FBD000;
+  color: #1F1F1F;
+  border: 2px solid #FFB800;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 0.75rem;
+  padding: 4px 12px;
+  display: inline-block;
+}
+
+/* Glass panel with Mario theme */
 .glass-panel {
-  background: color-mix(in srgb, var(--color-panel) 85%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-border-subtle) 80%, transparent);
-  border-radius: 1.5rem;
-  box-shadow: 0 25px 60px rgba(2, 7, 18, 0.55);
-  backdrop-filter: blur(24px);
+  background: rgba(255, 255, 255, 0.95);
+  border: 3px solid #1F1F1F;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(8px);
 }
 
-.cyber-grid {
-  background-image:
-    linear-gradient(
-      rgba(255, 255, 255, 0.03) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.03) 1px,
-      transparent 1px
-    );
-  background-size: 48px 48px;
-}
-
+/* Soft card Mario style */
 .soft-card {
-  background: var(--color-card);
-  border-radius: 1rem;
-  border: 1px solid color-mix(in srgb, var(--color-border-subtle) 70%, transparent);
-  box-shadow: 0 18px 45px rgba(4, 6, 15, 0.4);
+  background: #FFFFFF;
+  border-radius: 12px;
+  border: 2px solid #DDD8D1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
 }
 
+.soft-card:hover {
+  border-color: #E52521;
+  box-shadow: 0 8px 16px rgba(229, 37, 33, 0.15);
+}
+
+/* Accent gradient Mario */
 .accent-gradient {
-  background-image: linear-gradient(120deg, var(--color-accent-primary), var(--color-accent-tertiary));
+  background: linear-gradient(120deg, #E52521, #FBD000);
 }
 
-/* Legacy color tokens remapped */
-.bg-verde-musgo-oscuro { background-color: var(--color-surface); }
+/* Block-style background pattern */
+.mario-blocks-pattern {
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 40px,
+      rgba(229, 37, 33, 0.03) 40px,
+      rgba(229, 37, 33, 0.03) 80px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 40px,
+      rgba(229, 37, 33, 0.03) 40px,
+      rgba(229, 37, 33, 0.03) 80px
+    );
+}
+
+/* Sky background */
+.mario-sky-bg {
+  background: linear-gradient(180deg, #6B8CFF 0%, #B4D7FF 100%);
+}
+
+/* Cloud shapes */
+.mario-cloud {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 .text-crema { color: var(--color-text-primary); }
 .text-dorado-suave { color: var(--color-accent-secondary); }
 .bg-dorado-suave { background-color: var(--color-accent-secondary); }

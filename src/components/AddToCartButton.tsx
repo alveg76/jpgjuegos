@@ -19,7 +19,7 @@ export default function AddToCartButton({ product, disabled, label = "Agregar al
   return (
     <button
       type="button"
-      className="rounded-2xl border border-[--color-accent-primary]/60 px-4 py-2 text-sm font-semibold text-[--color-accent-primary] transition hover:border-[--color-accent-primary] hover:bg-[--color-accent-primary]/10 disabled:cursor-not-allowed disabled:border-[--color-border-subtle] disabled:text-[--color-text-muted]"
+      className="mario-button w-full text-sm"
       disabled={disabled}
       onClick={() =>
         addItem(

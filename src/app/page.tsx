@@ -189,14 +189,33 @@ const productSchemas = [
 
 export default function HomePage() {
   return (
-    <main id="contenido" className="space-y-16">
+    <main id="contenido">
       <Navbar />
       <Hero />
-      <TrustBar />
-      <CategoryStrip />
-      <FeaturedProductsGrid />
-      <DealsOfWeek />
-      <NewsletterCTA />
+      
+      {/* White/Cream section for trust and categories */}
+      <div className="bg-mario-cream">
+        <div className="space-y-16 py-16">
+          <TrustBar />
+          <CategoryStrip />
+        </div>
+      </div>
+
+      {/* Blue section for products */}
+      <div className="bg-gradient-to-b from-mario-blue via-mario-blue-light to-mario-blue-light py-16">
+        <FeaturedProductsGrid />
+      </div>
+
+      {/* Cream section for deals */}
+      <div className="bg-mario-cream py-16">
+        <DealsOfWeek />
+      </div>
+
+      {/* Blue section for newsletter */}
+      <div className="bg-gradient-to-b from-mario-blue-light to-mario-blue py-16">
+        <NewsletterCTA />
+      </div>
+
       <Footer />
 
       <script

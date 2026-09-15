@@ -30,45 +30,45 @@ export default function FeaturedProductsGridClient({ products }: { products: Pro
 
   if (!products?.length) {
     return (
-      <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8" id="featured-products">
-        <div className="mb-8">
-          <p className="text-xs uppercase tracking-[0.5em] text-[var(--color-text-muted)]">Catálogo JPG Juegos</p>
-          <h2 className="mt-2 text-3xl font-semibold text-[var(--color-text-primary)]">Favoritos en mesa y aula</h2>
+      <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8" id="featured-products">
+        <div className="mb-12">
+          <p className="text-xs uppercase tracking-[0.5em] text-mario-brown font-bold">🎮 Catálogo JPG Juegos</p>
+          <h2 className="mt-2 text-4xl font-bold text-mario-red">Favoritos en mesa y aula</h2>
         </div>
-        <div className="rounded-2xl border border-dashed border-[var(--color-border-subtle)] bg-[var(--color-card)] p-10 text-center text-[var(--color-text-muted)]">
-          No hay productos disponibles. Verifica que el Google Sheet esté actualizado.
+        <div className="mario-card p-10 text-center border-4 border-mario-brown">
+          <p className="text-mario-brown font-semibold">No hay productos disponibles. Verifica que el Google Sheet esté actualizado.</p>
         </div>
       </section>
     );
   }
 
   return (
-    <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8" id="featured-products">
-      <div className="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+    <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-8" id="featured-products">
+      <div className="mb-12 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="text-xs uppercase tracking-[0.5em] text-[var(--color-text-muted)]">Catálogo JPG Juegos</p>
-          <h2 className="mt-2 text-3xl font-semibold text-[var(--color-text-primary)]">Favoritos en mesa y aula</h2>
-          <p className="text-sm text-[var(--color-text-muted)]">
+          <p className="text-xs uppercase tracking-[0.5em] text-mario-brown font-bold">🎮 Catálogo JPG Juegos</p>
+          <h2 className="mt-2 text-4xl font-bold text-mario-red">Favoritos en mesa y aula</h2>
+          <p className="text-sm text-mario-brown mt-2 font-semibold">
             Estrategia, party y kits didácticos administrados directamente en Sanity.
           </p>
         </div>
-        <Link href="#preventas" className="text-sm font-semibold text-[--color-accent-primary]">
+        <a href="#preventas" className="text-sm font-bold text-mario-red hover:text-mario-brown transition">
           Ver preventas activas →
-        </Link>
+        </a>
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {products.map((product) => {
-          const imageSrc = product.image ?? placeholderImage;
+          const imageSrc = product.image?.trim() || placeholderImage;
           const displayName = product.name ?? product.slug;
           const isAvailable = product.stock === 'in_stock';
 
           return (
             <article
               key={product.id}
-              className="flex flex-col overflow-hidden rounded-2xl border border-[var(--color-border-subtle)] bg-[var(--color-card)] shadow-[0_18px_45px_rgba(3,6,15,0.35)]"
+              className="mario-card flex flex-col overflow-hidden border-4 border-mario-brown"
             >
-              <div className="relative h-52 w-full overflow-hidden">
+              <div className="relative h-52 w-full overflow-hidden bg-mario-cream">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={imageSrc}
@@ -76,25 +76,25 @@ export default function FeaturedProductsGridClient({ products }: { products: Pro
                   referrerPolicy="no-referrer"
                   className="h-full w-full object-cover transition duration-500 hover:scale-105"
                 />
-                <span className={`absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-bold ${
+                <span className={`absolute left-4 top-4 mario-badge ${
                   isAvailable
-                    ? 'bg-green-500 text-white'
-                    : 'bg-red-500 text-white'
+                    ? 'bg-mario-green text-white border-mario-green'
+                    : 'bg-red-600 text-white border-red-700'
                 }`}>
                   {isAvailable ? '✓ Disponible' : '✗ Agotado'}
                 </span>
               </div>
 
               <div className="flex flex-1 flex-col gap-4 p-5">
-                <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">{displayName}</h3>
+                <h3 className="text-lg font-bold text-mario-red">{displayName}</h3>
                 
                 {product.price !== undefined && (
-                  <div className="text-xl font-bold text-[--color-accent-secondary]">
+                  <div className="text-2xl font-bold text-mario-yellow border-b-2 border-mario-yellow pb-2">
                     {currency.format(product.price)}
                   </div>
                 )}
 
-                <p className="text-sm text-[var(--color-text-muted)]">
+                <p className="text-sm text-mario-brown">
                   {product.description || 'Juego de mesa para disfrutar en familia'}
                 </p>
                 
@@ -108,12 +108,12 @@ export default function FeaturedProductsGridClient({ products }: { products: Pro
                       image: product.image,
                     }}
                     disabled={!isAvailable}
-                    label={isAvailable ? 'Agregar' : 'Agotado'}
+                    label={isAvailable ? 'Comprar' : 'Agotado'}
                   />
                   
                   <button
                     onClick={() => openModal(product)}
-                    className="inline-flex w-full items-center justify-center rounded-xl border border-[var(--color-border-subtle)] py-2 text-sm font-semibold text-[var(--color-text-muted)] transition hover:border-[--color-accent-primary] hover:text-[--color-accent-primary]"
+                    className="mario-button-secondary w-full text-xs"
                   >
                     Ver detalles
                   </button>

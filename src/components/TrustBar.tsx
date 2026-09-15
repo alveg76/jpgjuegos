@@ -44,15 +44,15 @@ const trustSignals = [
 export default function TrustBar() {
   return (
     <section id="beneficios" className="mx-auto -mt-8 max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div className="glass-panel flex flex-col gap-6 rounded-3xl px-6 py-6 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
+      <div className="mario-card flex flex-col gap-6 rounded-2xl px-6 py-6 border-4 border-mario-brown sm:px-8 lg:flex-row lg:items-center lg:justify-between">
         {trustSignals.map((signal) => (
           <article key={signal.title} className="flex flex-1 items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[--color-border-subtle] bg-[--color-panel-soft] text-[--color-accent-primary]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg border-3 border-mario-brown bg-mario-yellow text-mario-red font-bold">
               {signal.icon}
             </div>
             <div>
-              <p className="text-sm font-semibold text-[--color-text-primary]">{signal.title}</p>
-              <p className="text-xs text-[--color-text-muted]">{signal.description}</p>
+              <p className="text-sm font-bold text-mario-red">{signal.title}</p>
+              <p className="text-xs text-mario-brown font-semibold">{signal.description}</p>
             </div>
           </article>
         ))}
